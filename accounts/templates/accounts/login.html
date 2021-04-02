@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 {% block content %}
   <h1>LOGIN PAGE</h1>
@@ -9,6 +11,8 @@
     {% bootstrap_form form %}
     <input type="submit">
   </form>
+  <hr>
+  <p><a href="{% provider_login_url 'google' %}" class="btn btn-primary">Google로 로그인</a></p>
   <hr>
   <a href="{% url 'community:index' %}">BACK</a>
 {% endblock %}
