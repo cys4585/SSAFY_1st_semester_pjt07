@@ -4,6 +4,11 @@ from django.conf import settings
 # Create your models here.
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # user 입장에서의 manager name
+    like = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, 
+        related_name='like_reviews'
+    )   
     title = models.CharField(max_length=100)
     movie_title = models.CharField(max_length=50)
     rank = models.IntegerField()

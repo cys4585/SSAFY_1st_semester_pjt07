@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ person.username }}</h1>
+  <!-- 나를 팔로우 하는 사람의 수 -->
+  <p>팔로워 {{ person.followers.all|length }}</p>
+  <!-- 내가 팔로우 하는 사람의 수 -->
+  <p>팔로우 {{ person.followings.all|length }}</p>
+
+  <!-- 본인이 아니라면 -> 버튼이 있어야한다. -->
+  <!-- request.user가 인증(authenticated)된 유저라면 -> 버튼이 있어야한다. -->
+  {% if request.user != person and request.user.is_authenticated %}
+    <form action="{% url 'accounts:follow' person.pk %}" method="POST">
+      {% csrf_token %}
+      <!-- person.followers 중에 request.user가 있니? -->
+      {% if request.user in person.followers.all %}
+        <!-- 있다면 -->
+        <button class="btn btn-primary">팔로우 취소</button>
+      {% else %}
+        <!-- 없다면 -->
+        <button class="btn btn-primary">팔로우</button>
+      {% endif %}
+    </form>
+  {% endif %}
+
+  {% comment %} {% for review in  %}{% endfor %} {% endcomment %}
+{% endblock content %}

@@ -4,8 +4,13 @@
   <h1>INDEX PAGE</h1>
   <hr>
   {% for review in reviews %}
-    <a href="{% url 'community:detail' review.pk %}">{{ review.title }}</a>
-    <p>{{ review.movie_title }}</p>
+    <!-- user_id : 이 게시글의 작성자의 id -->
+    <!-- 이 게시글 : review -->
+    <!-- 이 게시글의 작성자 : review.user -->
+    <!-- 이 게시글의 작성자의 id : review.user.pk -->
+    <p>작성자 : <a href="{% url 'accounts:profile' review.user.pk %}">{{ review.user.username }}</a></p>
+    <p>제목 : <a href="{% url 'community:detail' review.pk %}">{{ review.title }}</a></p>
+    <p>내용 : {{ review.movie_title }}</p>
     <hr>
   {% endfor %}
 {% endblock %}

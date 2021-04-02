@@ -10,6 +10,18 @@
   <p>{{ review.rank }}</p>
   <p>{{ review.created_at }}</p>
   <p>{{ review.updated_at }}</p>
+  <form action="{% url 'community:like' review.pk %}" method='POST'>
+    {% csrf_token %}
+    <!-- 좋아요를 이미 눌렀던 경우 /--> 
+    {% if request.user in review.like.all %}
+      <button class="btn btn-primary">좋아요 취소</button>
+    {% else %}
+      <!-- 아닌 경우 구분 -->
+      <button class="btn btn-primary">좋아요</button>
+    {% endif %}
+  </form>
+  <!-- 이 게시글을 좋아요를 누른 user들을 알고싶다면 -->
+  <p>좋아요 {{ review.like.all|length }}</p>
   <hr>
   <h4>댓글 목록</h4>
   <p>{{ comments|length }}개의 댓글이 있습니다.</p>
