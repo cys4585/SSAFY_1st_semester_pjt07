@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>INDEX PAGE</h1>
+  <hr>
+  {% for review in reviews %}
+    <a href="{% url 'community:detail' review.pk %}">{{ review.title }}</a>
+    <p>{{ review.movie_title }}</p>
+    <hr>
+  {% endfor %}
+{% endblock %}
